@@ -30,7 +30,9 @@ const AvailableClients = (props) => {
   useEffect(() => {
     const fetchClients = async () => {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8090/customers");
+      const response = await fetch(
+        "https://backend-jpapp.herokuapp.com//customers"
+      );
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
