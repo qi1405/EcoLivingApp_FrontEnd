@@ -27,12 +27,13 @@ const SingleClient = (props) => {
       }
 
       const responseData = await response.json();
+      console.log(responseData)
 
       const loadedClient = [];
 
       for (const key in responseData) {
         loadedClient.push({
-          key: responseData[key].pid,
+          key: responseData[key].id,
           SName: responseData[key].name,
           SSurname: responseData[key].surname,
           SBalance: responseData[key].debit - responseData[key].credit,
@@ -42,7 +43,7 @@ const SingleClient = (props) => {
           SCustomerNumber: responseData[key].customerNumber,
           SCustomerType: responseData[key].customerTypeID,
           SActive: responseData[key].enabled,
-          Spid: responseData[key].pid,
+          Spid: responseData[key].id,
           SDateCreated: responseData[key].dateCreated,
         });
       }
