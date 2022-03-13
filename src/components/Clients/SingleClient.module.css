@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.ClientsLoading {
+  text-align: center;
+  color: blue;
+}
+
+.ClientsError {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #008080;
+  border: 3px solid #88eeee;
+  color: white;
+  margin-top: 0.4rem;
+  padding: 0.25rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
+  width: fit-content;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.form button:hover,
+.form button:active {
+  background-color: #641e03;
+  border-color: #641e03;
+}

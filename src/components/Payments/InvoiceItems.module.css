@@ -1,0 +1,30 @@
+.meal {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  gap: 10px;
+  text-align: center;
+  margin: 0.1rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  background-color: #abdfec;
+  border-radius: 6px;
+}
+
+.meal ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mealfritem {
+  width: 4rem;
+  height: auto;
+}
+
+.invoicenr {
+  width: 7rem;
+  height: auto;
+}

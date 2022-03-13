@@ -1,0 +1,22 @@
+.invoiceshead {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem;
+  background-color: #88eeee;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.invoicesitem {
+  width: 4rem;
+  height: auto;
+}
+
+.invoicenritem {
+  width: 7rem;
+  height: auto;
+}

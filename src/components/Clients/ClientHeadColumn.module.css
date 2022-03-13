@@ -1,0 +1,30 @@
+.mealfr {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem;
+  background-color: #88eeee;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/*
+.mealfr h3 {
+  margin: 0 0 0.05rem 0;
+}
+
+.balance {
+  margin-top: 0.25rem;
+  font-weight: bold;
+  color: #ad5502;
+  font-size: 1.25rem;
+}
+*/
+
+.mealfritem {
+  width: 4rem;
+  height: auto;
+}

@@ -1,0 +1,54 @@
+.meal {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  gap: 10px;
+  text-align: center;
+  margin: 0.1rem;
+  padding-bottom: 0rem;
+  border-bottom: 1px solid rgb(163, 17, 17);
+}
+
+.meal h3 {
+  margin: 0 0 0.05rem 0;
+}
+
+.description {
+  font-style: italic;
+}
+
+.balance {
+  margin-top: 0.25rem;
+  font-weight: bold;
+  color: #ad5502;
+  font-size: 1.25rem;
+}
+
+.mealitem {
+  width: 100px;
+  height: auto;
+  border-right: 1px solid #ad5502;
+}
+
+.form {
+    text-align: right;
+  }
+  
+  .form button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #008080;
+    border: 3px solid #88eeee;
+    color: white;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: bold;
+    width: fit-content;
+    margin-bottom: 5px;
+  }
+  
+  .form button:hover,
+  .form button:active {
+    background-color: #641e03;
+    border-color: #641e03;
+  }

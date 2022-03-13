@@ -1,0 +1,21 @@
+.mealfr {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0rem;
+  border-bottom: 1px solid rgb(163, 17, 17);
+  background-color: #88eeee;
+  border-radius: 10px;
+}
+
+.mealfr h3 {
+  margin: 0 0 0.05rem 0;
+}
+
+.mealfritem {
+  width: 100px;
+  height: auto;
+}
