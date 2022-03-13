@@ -20,7 +20,9 @@ const SingleClient = (props) => {
   useEffect(() => {
     const fetchClient = async () => {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:8090/customers/${pid}`);
+      const response = await fetch(
+        `https://backend-jpapp.herokuapp.com//customers/${pid}`
+      );
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
