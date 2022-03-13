@@ -21,7 +21,7 @@ const SingleClient = (props) => {
     const fetchClient = async () => {
       setIsLoading(true);
       const response = await fetch(
-        `https://backend-jpapp.herokuapp.com//customers/${pid}`
+        `https://backend-jpapp.herokuapp.com/customers/${pid}`
       );
 
       if (!response.ok) {
