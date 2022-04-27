@@ -7,6 +7,10 @@ import ClientHeadColumn from "../Clients/ClientHeadColumn";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import Invoices from "../Payments/Invoices";
 import { useNavigate, Routes, Route } from "react-router-dom";
+import EventBus from "../common/EventBus";
+import authHeader from "../services/auth-header";
+import axios from "axios";
+
 
 const SingleClient = (props) => {
   const { pid } = useParams();
@@ -17,21 +21,20 @@ const SingleClient = (props) => {
   const [loadInvoices, setLoadInvoices] = useState("Load");
   const navigate = useNavigate();
 
+  const API_MAIN = "http://localhost:8090/";
+
+  const getSingleCustomer = () => {
+    return axios.get(API_MAIN + `customers/${pid}`, { headers: authHeader() });
+  };
+
   useEffect(() => {
-    const fetchClient = async () => {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://backend-jpapp.herokuapp.com/customers/${pid}`
-      );
 
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseData = await response.json();
-      console.log(responseData)
-
-      const loadedClient = [];
+    setIsLoading(true);
+    getSingleCustomer().then(
+      (response) => {
+        setClient(response.data)
+        const responseData = response.data;
+              const loadedClient = [];
 
       for (const key in responseData) {
         loadedClient.push({
@@ -51,11 +54,20 @@ const SingleClient = (props) => {
       }
       setClient(loadedClient);
       setIsLoading(false);
-    };
+    },
+    (error) => {
+      const _content =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-    fetchClient().catch((error) => {
-      setIsLoading(false);
-      setHttpError(error.message);
+      setClient(_content);
+
+      if (error.response && error.response.status === 401) {
+        EventBus.dispatch("logout");
+      }
     });
   }, []);
 
@@ -70,13 +82,13 @@ const SingleClient = (props) => {
     );
   }
 
-  if (httpError) {
-    return (
-      <section className={classes.ClientsError}>
-        <p>{httpError}</p>
-      </section>
-    );
-  }
+  // if (httpError) {
+  //   return (
+  //     <section className={classes.ClientsError}>
+  //       <p>{httpError}</p>
+  //     </section>
+  //   );
+  // }
 
   const clientList = clients.map((client) => (
     <SingleClientItem

@@ -4,6 +4,9 @@ import { Fragment, useEffect, useState } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from './Invoices.module.css';
 import InvoiceItems from "./InvoiceItems";
+import EventBus from "../common/EventBus";
+import authHeader from "../services/auth-header";
+import axios from "axios";
 
 const Invoices = (props) => {
   const { pid } = useParams();
@@ -12,19 +15,18 @@ const Invoices = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState();
 
+  const API_MAIN = "http://localhost:8090/";
+
+  const getInvoices = () => {
+    return axios.get(API_MAIN + `customers/${pid}/invoices`, { headers: authHeader() });
+  };
+
   useEffect(() => {
-    const fetchInvoices = async () => {
-      setIsLoading(true);
-      const responseInv = await fetch(
-        `https://backend-jpapp.herokuapp.com/customers/${pid}/invoices`
-      );
-
-      if (!responseInv.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const responseDataInv = await responseInv.json();
-
+    setIsLoading(true);
+    getInvoices().then(
+      (response) => {
+        setInvoices(response.data)
+        const responseDataInv = response.data;
       const loadedInvoices = [];
 
       for (const key in responseDataInv) {
@@ -46,11 +48,21 @@ const Invoices = (props) => {
       }
       setInvoices(loadedInvoices);
       setIsLoading(false);
-    };
-        fetchInvoices().catch((error) => {
-          setIsLoading(false);
-          setHttpError(error.message);
-        });
+    },
+    (error) => {
+      const _content =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+        setInvoices(_content);
+
+      if (error.response && error.response.status === 401) {
+        EventBus.dispatch("logout");
+      }
+    });
   }, []);
 
   if (isLoading) {
@@ -59,12 +71,6 @@ const Invoices = (props) => {
         <section><p>Loading invoices...</p></section>
         <LoadingSpinner />
       </Fragment>
-    )
-  }
-
-  if (httpError) {
-    return (
-      <section><p>{httpError}</p></section>
     )
   }
 
