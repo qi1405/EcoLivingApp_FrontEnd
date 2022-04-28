@@ -21,7 +21,7 @@ const SingleClient = (props) => {
   const [loadInvoices, setLoadInvoices] = useState("Load");
   const navigate = useNavigate();
 
-  const API_MAIN = "http://localhost:8090/";
+  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
 
   const getSingleCustomer = () => {
     return axios.get(API_MAIN + `customers/${pid}`, { headers: authHeader() });

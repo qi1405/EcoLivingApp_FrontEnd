@@ -2,8 +2,8 @@ import axios from "axios";
 import authHeader from "./auth-header";
 
 
-const API_URL = "http://localhost:8090/api/test/";
-const API_MAIN = "http://localhost:8090/";
+const API_URL = "https://backend-jpapp.herokuapp.com/api/test/";
+const API_MAIN = "https://backend-jpapp.herokuapp.com/";
 
 
 const getPublicContent = () => {
