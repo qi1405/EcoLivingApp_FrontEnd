@@ -25,7 +25,7 @@ const SingleClient = (props) => {
   // const API_MAIN = "http://localhost:8090/";
 
   const getSingleCustomer = () => {
-    return axios.get(API_MAIN + `customers/${pid}`, { headers: authHeader() });
+    return axios.get(API_MAIN + `data/customers/${pid}`, { headers: authHeader() });
   };
 
   useEffect(() => {

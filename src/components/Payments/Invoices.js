@@ -19,7 +19,7 @@ const Invoices = (props) => {
   const API_MAIN = "https://backend-jpapp.herokuapp.com/";
 
   const getInvoices = () => {
-    return axios.get(API_MAIN + `customers/${pid}/invoices`, { headers: authHeader() });
+    return axios.get(API_MAIN + `data/customers/${pid}/invoices`, { headers: authHeader() });
   };
 
   useEffect(() => {

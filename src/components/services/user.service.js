@@ -25,7 +25,7 @@ const getAdminBoard = () => {
 };
 
 const getCustomers = () => {
-  return axios.get(API_MAIN + "customers", { headers: authHeader() });
+  return axios.get(API_MAIN + "data/customers", { headers: authHeader() });
 };
 
 
