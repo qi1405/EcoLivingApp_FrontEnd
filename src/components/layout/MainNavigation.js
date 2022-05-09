@@ -1,38 +1,39 @@
 import classes from "./MainNavigation.module.css";
 import { NavLink, Link } from "react-router-dom";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
 const MainNavigation = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
+    
+    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+    const [showAdminBoard, setShowAdminBoard] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
 
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
+    useEffect(() => {
+      const user = AuthService.getCurrentUser();
 
-    if (user) {
-      setCurrentUser(user);
-      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
+      if (user) {
+        setCurrentUser(user);
+        setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+        setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      }
 
-    EventBus.on("logout", () => {
-      logOut();
-    });
+      EventBus.on("logout", () => {
+        logOut();
+      });
 
-    return () => {
-      EventBus.remove("logout");
+      return () => {
+        EventBus.remove("logout");
+      };
+    }, []);
+
+    const logOut = () => {
+      AuthService.logout();
+      setShowModeratorBoard(false);
+      setShowAdminBoard(false);
+      setCurrentUser(undefined);
     };
-  }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-    setShowModeratorBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-  };
 
   return (
     <header className={classes.header}>
@@ -41,57 +42,63 @@ const MainNavigation = () => {
       </Link>
       <nav className={classes.nav}>
         <ul>
+          <li>
+            <NavLink
+              to="/clients"
+              style={({ isActive }) =>
+                isActive
+                  ? {
+                      color: "#e6fcfc",
+                    }
+                  : { color: "" }
+              }
+            >
+              All Clients
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/new-client"
+              style={({ isActive }) =>
+                isActive
+                  ? {
+                      color: "#e6fcfc",
+                    }
+                  : { color: "" }
+              }
+            >
+              Add a Client
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/home"
+              style={({ isActive }) =>
+                isActive
+                  ? {
+                      color: "#e6fcfc",
+                    }
+                  : { color: "" }
+              }
+            >
+              Home
+            </NavLink>
+          </li>
           {showModeratorBoard && (
-            <Fragment>
-              <div>
-                <li>
-                  <NavLink
-                    to="/clients"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    All Clients
-                  </NavLink>
-                </li>
-              </div>
-              <div>
-                <li>
-                  <NavLink
-                    to="/new-client"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    Add a Client
-                  </NavLink>
-                </li>
-              </div>
-              <div>
-                <li>
-                  <NavLink
-                    to="/mod"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    Moderator Board
-                  </NavLink>
-                </li>
-              </div>
-            </Fragment>
+            <li>
+              <NavLink
+                to="/mod"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: "#e6fcfc",
+                      }
+                    : { color: "" }
+                }
+              >
+                Moderator Board
+              </NavLink>
+            </li>
           )}
           {showAdminBoard && (
             <li>
@@ -126,76 +133,68 @@ const MainNavigation = () => {
             </li>
           )}
           {currentUser ? (
-            <Fragment>
-              <div>
-                <li>
-                  <NavLink
-                    to="/profile"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    {currentUser.username}
-                  </NavLink>
-                </li>
-              </div>
-              <div>
-                <li>
-                  <NavLink
-                    to="/login"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                    onClick={logOut}
-                  >
-                    LogOut
-                  </NavLink>
-                </li>
-              </div>
-            </Fragment>
+            <div>
+              <li>
+                <NavLink
+                  to="/profile"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#e6fcfc",
+                        }
+                      : { color: "" }
+                  }
+                >
+                  {currentUser.username}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/login"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#e6fcfc",
+                        }
+                      : { color: "" }
+                  }
+                  onClick={logOut}
+                >
+                  LogOut
+                </NavLink>
+              </li>
+            </div>
           ) : (
-            <Fragment>
-              <div>
-                <li>
-                  <NavLink
-                    to="/login"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    Login
-                  </NavLink>
-                </li>
-              </div>
-              <div>
-                <li>
-                  <NavLink
-                    to="/register"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            color: "#e6fcfc",
-                          }
-                        : { color: "" }
-                    }
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
-              </div>
-            </Fragment>
+            <div>
+              <li>
+                <NavLink
+                  to="/login"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#e6fcfc",
+                        }
+                      : { color: "" }
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#e6fcfc",
+                        }
+                      : { color: "" }
+                  }
+                >
+                  Sign Up
+                </NavLink>
+              </li>
+            </div>
           )}
         </ul>
       </nav>

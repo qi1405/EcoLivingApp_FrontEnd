@@ -138,7 +138,7 @@ const Register = () => {
                 validations={[required, vpassword]}
               />
             </div>
-            <button disabled={true} className="btn btn-primary btn-ghost">Register</button>
+            <button className="btn btn-primary btn-ghost">Register</button>
           </div>
         )}
         {message && (

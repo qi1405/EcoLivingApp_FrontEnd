@@ -3,13 +3,11 @@ import classes from "./AvailableClients.module.css";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import SearchClient from "./SearchClient";
-import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
-
 
 const AvailableClients = (props) => {
   const [clients, setClients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -30,12 +28,19 @@ const AvailableClients = (props) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    UserService.getCustomers().then(
-      (response) => {
-        setClients(response.data)
-        const responseData = response.data;
-              const loadedClients = [];
+    const fetchClients = async () => {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://backend-jpapp.herokuapp.com/customers"
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseData = await response.json();
+
+      const loadedClients = [];
 
       for (const key in responseData) {
         loadedClients.push({
@@ -54,21 +59,12 @@ const AvailableClients = (props) => {
       // console.log(responseData[0].pid)
       setClients(loadedClients);
       setIsLoading(false);
-      },
-            (error) => {
-        const _content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    };
 
-        setClients(_content);
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
-        }
-      });
+    fetchClients().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
 
   if (isLoading) {
@@ -79,6 +75,14 @@ const AvailableClients = (props) => {
         </section>
         <LoadingSpinner className={classes.Spinner} />
       </Fragment>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.ClientsError}>
+        <p>{httpError}</p>
+      </section>
     );
   }
 
