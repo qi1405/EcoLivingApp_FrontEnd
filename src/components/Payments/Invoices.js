@@ -16,7 +16,7 @@ const Invoices = (props) => {
     const fetchInvoices = async () => {
       setIsLoading(true);
       const responseInv = await fetch(
-        `https://backend-jpapp.herokuapp.com/customers/${pid}/invoices`
+        `https://backend-jpapp.herokuapp.com/data/customers/${pid}/invoices`
       );
 
       if (!responseInv.ok) {

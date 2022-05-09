@@ -31,7 +31,7 @@ const AvailableClients = (props) => {
     const fetchClients = async () => {
       setIsLoading(true);
       const response = await fetch(
-        "https://backend-jpapp.herokuapp.com/customers"
+        "https://backend-jpapp.herokuapp.com/data/customers"
       );
 
       if (!response.ok) {
