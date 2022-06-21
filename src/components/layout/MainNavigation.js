@@ -6,35 +6,37 @@ import EventBus from "../common/EventBus";
 import { Fragment } from "react";
 
 const MainNavigation = () => {
-    
-    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-    const [showAdminBoard, setShowAdminBoard] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
+  const [showUserBoard, setShowUserBoard] = useState(false);
+  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-    useEffect(() => {
-      const user = AuthService.getCurrentUser();
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
 
-      if (user) {
-        setCurrentUser(user);
-        setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-        setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-      }
+    if (user) {
+      setCurrentUser(user);
+      setShowUserBoard(user.roles.includes("ROLE_USER"));
+      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
 
-      EventBus.on("logout", () => {
-        logOut();
-      });
+    }
 
-      return () => {
-        EventBus.remove("logout");
-      };
-    }, []);
+    EventBus.on("logout", () => {
+      logOut();
+    });
 
-    const logOut = () => {
-      AuthService.logout();
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
-      setCurrentUser(undefined);
+    return () => {
+      EventBus.remove("logout");
     };
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+    setShowModeratorBoard(false);
+    setShowAdminBoard(false);
+    setCurrentUser(undefined);
+  };
 
   return (
     <header className={classes.header}>
@@ -43,6 +45,24 @@ const MainNavigation = () => {
       </Link>
       <nav className={classes.nav}>
         <ul>
+          {(showUserBoard || showAdminBoard || showModeratorBoard) && (
+            <div>
+              <li>
+                <NavLink
+                  to="/invoicing"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          color: "#e6fcfc",
+                        }
+                      : { color: "" }
+                  }
+                >
+                  Invoicing
+                </NavLink>
+              </li>
+            </div>
+          )}
           {showModeratorBoard && (
             <Fragment>
               <div>
@@ -108,6 +128,22 @@ const MainNavigation = () => {
                 }
               >
                 Admin Board
+              </NavLink>
+            </li>
+          )}
+          {currentUser && (
+            <li>
+              <NavLink
+                to="/clients"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: "#e6fcfc",
+                      }
+                    : { color: "" }
+                }
+              >
+                All Clients
               </NavLink>
             </li>
           )}

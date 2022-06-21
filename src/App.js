@@ -1,5 +1,5 @@
 // import './App.css';
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
@@ -14,38 +14,44 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Profile from "./components/pages/Profile";
 import Home from "./components/pages/Home";
+import Invoicing from "./components/pages/Invoicing";
+import AuthService from "./components/services/auth.service";
+import EventBus from "./components/common/EventBus";
 
 // import ClientCart from "./components/Clients/ClientCart";
 
 function App() {
-  // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  // const [showAdminBoard, setShowAdminBoard] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(undefined);
+  const [showUserBoard, setShowUserBoard] = useState(false);
+  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-  //   useEffect(() => {
-  //     const user = AuthService.getCurrentUser();
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
 
-  //     if (user) {
-  //       setCurrentUser(user);
-  //       setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-  //       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-  //     }
+    if (user) {
+      setCurrentUser(user);
+      setShowUserBoard(user.roles.includes("ROLE_USER"));
+      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
 
-  //     EventBus.on("logout", () => {
-  //       logOut();
-  //     });
+    EventBus.on("logout", () => {
+      logOut();
+    });
 
-  //     return () => {
-  //       EventBus.remove("logout");
-  //     };
-  //   }, []);
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, []);
 
-  //   const logOut = () => {
-  //     AuthService.logout();
-  //     setShowModeratorBoard(false);
-  //     setShowAdminBoard(false);
-  //     setCurrentUser(undefined);
-  //   };
+  const logOut = () => {
+    AuthService.logout();
+    setShowUserBoard(false);
+    setShowModeratorBoard(false);
+    setShowAdminBoard(false);
+    setCurrentUser(undefined);
+  };
 
   // const [cartIsShown, setCartIsShown] = useState(false);
 
@@ -72,14 +78,21 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/clients" element={<AllClients />} />
           <Route path="/clients/:pid/*" element={<ClientDetails />} />
+          {(showAdminBoard || showModeratorBoard) && (
           <Route path="/new-client" element={<NewClient />} />
+          )}
           <Route path="*" element={<NotFound />} />
-          <Route path="/login" element={<Login />} />
+          {(!showUserBoard || !showAdminBoard || !showModeratorBoard) && (
+            <Route path="/login" element={<Login />} />
+          )}
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
           <Route path="/admin" element={<BoardAdmin />} />
+          {(showUserBoard || showAdminBoard || showModeratorBoard) && (
+            <Route path="/invoicing" element={<Invoicing />} />
+          )}
         </Routes>
       </Suspense>
     </Layout>

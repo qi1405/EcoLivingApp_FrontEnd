@@ -7,7 +7,6 @@ import AuthService from "../services/auth.service";
 import classes from "./LoginRegister.module.css";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
-
 const required = (value) => {
   if (!value) {
     return (
@@ -71,46 +70,42 @@ const Login = (props) => {
   return (
     <div className={classes.container}>
       <Form onSubmit={handleLogin} ref={form}>
-        
-          <h1>Login</h1>
+        <h1>Login</h1>
+        <div>
+          <label htmlFor="username">Username</label>
+          <Input
+            type="text"
+            className="form-control"
+            name="username"
+            value={username}
+            onChange={onChangeUsername}
+            validations={[required]}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChangePassword}
+            validations={[required]}
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn btn-primary btn-ghost"
+          disabled={loading}
+        >
+          Login
+        </button>
+        {loading && <LoadingSpinner className={classes.Spinner} />}
+        {message && (
           <div>
-            <label htmlFor="username">Username</label>
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
+            <div>{message}</div>
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary btn-ghost"
-            disabled={loading}
-          >
-            {loading && <LoadingSpinner className={classes.Spinner} />}
-            Login
-          </button>
-          {message && (
-            <div>
-              <div>
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        
+        )}
+        <CheckButton style={{ display: "none" }} ref={checkBtn} />
       </Form>
     </div>
   );

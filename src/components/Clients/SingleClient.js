@@ -20,7 +20,8 @@ const SingleClient = (props) => {
   const [loadInvoices, setLoadInvoices] = useState("Load");
   const navigate = useNavigate();
 
-  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  const API_MAIN = "http://localhost:8090/";
 
   const getSingleCustomer = () => {
     return axios.get(API_MAIN + `data/customers/${pid}`, { headers: authHeader() });
@@ -40,7 +41,7 @@ const SingleClient = (props) => {
           key: responseData[key].id,
           SName: responseData[key].name,
           SSurname: responseData[key].surname,
-          SBalance: responseData[key].debit - responseData[key].credit,
+          SBalance: responseData[key].credit - responseData[key].debit,
           SAddress: responseData[key].address,
           SArea: responseData[key].area,
           SCity: responseData[key].city,

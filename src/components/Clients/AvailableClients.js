@@ -41,7 +41,7 @@ const AvailableClients = (props) => {
           key: responseData[key].id,
           Name: responseData[key].name,
           Surname: responseData[key].surname,
-          Balance: responseData[key].debit - responseData[key].credit,
+          Balance: responseData[key].credit - responseData[key].debit,
           Address: responseData[key].address,
           Area: responseData[key].area,
           City: responseData[key].city,

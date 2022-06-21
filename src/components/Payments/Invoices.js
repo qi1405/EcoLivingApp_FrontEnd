@@ -15,7 +15,8 @@ const Invoices = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState();
 
-  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  const API_MAIN = "http://localhost:8090/";
 
   const getInvoices = () => {
     return axios.get(API_MAIN + `data/customers/${pid}/invoices`, { headers: authHeader() });
