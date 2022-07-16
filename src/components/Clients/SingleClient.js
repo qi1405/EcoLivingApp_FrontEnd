@@ -6,6 +6,7 @@ import SingleClientItem from "../Clients/SingleClientItem";
 import ClientHeadColumn from "../Clients/ClientHeadColumn";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import Invoices from "../Payments/Invoices";
+import AllInvoices from "../Payments/AllInvoices";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import EventBus from "../common/EventBus";
 import authHeader from "../services/auth-header";
@@ -20,8 +21,8 @@ const SingleClient = (props) => {
   const [loadInvoices, setLoadInvoices] = useState("Load");
   const navigate = useNavigate();
 
-  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
-  // const API_MAIN = "http://localhost:8090/";
+  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  const API_MAIN = "http://localhost:8090/";
 
   const getSingleCustomer = () => {
     return axios.get(API_MAIN + `data/customers/${pid}`, { headers: authHeader() });
@@ -104,6 +105,9 @@ const SingleClient = (props) => {
   const invoicesLoadHide = () => {
     if (loadInvoices === "Load") {
       navigate(`/clients/${pid}/invoices`);
+      setLoadInvoices("Load all");
+    } else if (loadInvoices === "Load all") {
+      navigate(`/clients/${pid}/allinvoices`);
       setLoadInvoices("Hide");
     } else {
       navigate(`/clients/${pid}`);
@@ -113,7 +117,7 @@ const SingleClient = (props) => {
 
   return (
     <Fragment>
-      <p>This is the page of Customer id. {pid}</p>
+      <p style={{textAlign: 'center'}}>This is the page of Customer id. {pid}</p>
       <section className={classes.container}>
         <Card>
           <div>
@@ -129,7 +133,8 @@ const SingleClient = (props) => {
           </div>
           <div>
             <Routes>
-              <Route path="invoices" element={<Invoices />} />
+              <Route path="invoices/*" element={<Invoices />} />
+              <Route path="allinvoices/*" element={<AllInvoices />} />
             </Routes>
           </div>
         </Card>

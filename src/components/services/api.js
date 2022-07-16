@@ -1,8 +1,8 @@
 import axios from "axios";
 import TokenService from "./token.service";
 const instance = axios.create({
-  baseURL: "https://backend-jpapp.herokuapp.com/api",
-  // baseURL: "http://localhost:8090/api",
+  // baseURL: "https://backend-jpapp.herokuapp.com/api",
+  baseURL: "http://localhost:8090/api",
   headers: {
     "Content-Type": "application/json",
   },

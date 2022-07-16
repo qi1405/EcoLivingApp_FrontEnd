@@ -1,7 +1,32 @@
 import { Fragment } from "react";
 import classes from "./SingleClientItem.module.css";
+import authHeader from "../services/auth-header";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
 
 const SingleClientItem = (props) => {
+  const { pid } = useParams();
+  const API = "http://localhost:8090/customers/invoices/invsCust"+pid;
+
+
+  function download () {
+
+  axios({
+    url: API,
+    method: 'GET',
+    responseType: 'blob', // Important
+    headers: authHeader()
+  }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", pid+".pdf");
+      document.body.appendChild(link);
+      link.click()
+  });
+}
+
   return (
     <Fragment>
       <section className={classes.meal}>
@@ -37,6 +62,9 @@ const SingleClientItem = (props) => {
         </div>
         <div className={classes.mealfritem}>
           <div>{props.SDateCreated}</div>
+        </div>
+        <div className={classes.mealfritem}>
+          <button onClick={download} className={classes.button}>Print Invoices</button>
         </div>
       </section>
     </Fragment>

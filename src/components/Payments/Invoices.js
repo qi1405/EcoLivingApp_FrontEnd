@@ -7,6 +7,7 @@ import InvoiceItems from "./InvoiceItems";
 import EventBus from "../common/EventBus";
 import authHeader from "../services/auth-header";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Invoices = (props) => {
   const { pid } = useParams();
@@ -14,17 +15,20 @@ const Invoices = (props) => {
   const [invoices, setInvoices] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState();
+  const navigate = useNavigate();
 
-  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
-  // const API_MAIN = "http://localhost:8090/";
 
-  const getInvoices = () => {
+  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  const API_MAIN = "http://localhost:8090/";
+
+  const getRecentInvoices = () => {
     return axios.get(API_MAIN + `data/customers/${pid}/invoices`, { headers: authHeader() });
   };
 
+
   useEffect(() => {
     setIsLoading(true);
-    getInvoices().then(
+    getRecentInvoices().then(
       (response) => {
         setInvoices(response.data)
         const responseDataInv = response.data;
@@ -37,7 +41,6 @@ const Invoices = (props) => {
           InvoiceNumber: responseDataInv[key].invoiceNumber,
           Credit: responseDataInv[key].credit,
           Debit: responseDataInv[key].debit,
-
           MonthOfPayment: responseDataInv[key].monthOfPayment,
           DateOfPayment: responseDataInv[key].dateOfPayment,
           PaymentPeriod: responseDataInv[key].paymentPeriod,
@@ -65,7 +68,7 @@ const Invoices = (props) => {
         EventBus.dispatch("logout");
       }
     });
-  }, []);
+}, []);
 
   if (isLoading) {
     return (

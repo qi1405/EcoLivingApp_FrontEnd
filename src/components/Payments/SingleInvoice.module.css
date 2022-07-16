@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.prova1{
+  display: flex;
+  width: max-content;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  animation: meals-appear 1s ease-out forwards;
+}
+
+@keyframes meals-appear {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fieldnames {
+  text-align: right;
+  border-right: 2px solid #88eeee;
+  padding-right: 0.25rem;
+  width: 14rem;
+}
+
+.fielditems {
+  text-align: left;
+  padding-left: 0.25rem;
+  width: 10rem;
+}
+
+.border{
+  border-left: 2px solid rgb(163, 17, 17);
+  border-right: 2px solid rgb(163, 17, 17);
+}
+
+.button {
+  cursor: pointer;
+  background-color: #008080;
+  border: 3px solid #88eeee;
+  color: white;
+  margin-top: 0.4rem;
+  padding: 0.25rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
+  width: fit-content;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.form button:hover,
+.form button:active {
+  background-color: #641e03;
+  border-color: #641e03;
+}

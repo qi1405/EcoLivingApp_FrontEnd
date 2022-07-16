@@ -1,7 +1,7 @@
 .meal {
   display: flex;
   flex-wrap: wrap;
-  width: auto;
+  width: auto ;
   gap: 10px;
   text-align: center;
   margin: 0.1rem;
@@ -39,4 +39,24 @@
 .mealfritem {
   width: 4rem;
   height: auto;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #008080;
+  border: 3px solid #88eeee;
+  color: white;
+  /* margin-top: 0.1rem; */
+  /* padding: 0.2rem 1.4rem; */
+  border-radius: 14px;
+  font-weight: bold;
+  width: fit-content;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.button:hover,
+.button:active {
+  background-color: #641e03;
+  border-color: #641e03;
 }

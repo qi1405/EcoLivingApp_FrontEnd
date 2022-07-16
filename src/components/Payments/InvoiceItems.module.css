@@ -28,3 +28,23 @@
   width: 7rem;
   height: auto;
 }
+
+.button {
+  cursor: pointer;
+  background-color: #008080;
+  border: 2px solid #88eeee;
+  color: white;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-weight: bold;
+  width: fit-content;
+  margin-bottom: 3px;
+  text-align: center;
+}
+
+.button:hover,
+.button:active {
+  background-color: #641e03;
+  border-color: #641e03;
+}

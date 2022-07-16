@@ -22,53 +22,54 @@ const AvailableClients = (props) => {
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newClientsList);
-    }
-    else {
+    } else {
       setSearchResults(clients);
     }
   };
 
   useEffect(() => {
     setIsLoading(true);
+
     UserService.getCustomers().then(
       (response) => {
-        setClients(response.data)
+        setClients(response.data);
         const responseData = response.data;
-      const loadedClients = [];
+        const loadedClients = [];
 
-      for (const key in responseData) {
-        loadedClients.push({
-          key: responseData[key].id,
-          Name: responseData[key].name,
-          Surname: responseData[key].surname,
-          Balance: responseData[key].credit - responseData[key].debit,
-          Address: responseData[key].address,
-          Area: responseData[key].area,
-          City: responseData[key].city,
-          CustomerNumber: responseData[key].customerNumber,
-          CustomerType: responseData[key].customerTypeID,
-          Active: responseData[key].enabled,
-        });
+        for (const key in responseData) {
+          loadedClients.push({
+            key: responseData[key].id,
+            Name: responseData[key].name,
+            Surname: responseData[key].surname,
+            Balance: responseData[key].credit - responseData[key].debit,
+            Address: responseData[key].address,
+            Area: responseData[key].area,
+            City: responseData[key].city,
+            CustomerNumber: responseData[key].customerNumber,
+            CustomerType: responseData[key].customerTypeID,
+            Active: responseData[key].enabled,
+          });
+        }
+        // console.log(responseData[0].pid)
+        setClients(loadedClients);
+        setIsLoading(false);
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setClients(_content);
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
       }
-      // console.log(responseData[0].pid)
-      setClients(loadedClients);
-      setIsLoading(false);
-    },
-    (error) => {
-const _content =
-  (error.response &&
-    error.response.data &&
-    error.response.data.message) ||
-  error.message ||
-  error.toString();
-
-setClients(_content);
-
-if (error.response && error.response.status === 401) {
-  EventBus.dispatch("logout");
-}
-});
-}, []);
+    );
+  }, []);
 
   if (isLoading) {
     return (
@@ -79,7 +80,7 @@ if (error.response && error.response.status === 401) {
         <LoadingSpinner className={classes.Spinner} />
       </Fragment>
     );
-  }
+  } 
 
   return (
     <section className={classes.container}>

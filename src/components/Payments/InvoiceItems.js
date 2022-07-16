@@ -1,7 +1,16 @@
 import { Fragment } from "react";
 import classes from './InvoiceItems.module.css';
+import { useParams, useNavigate, Routes, Route } from "react-router-dom";
+import SingleInvoice from "./SingleInvoice";
 
 const InvoiceItems = (props) => {
+  const { pid } = useParams();
+  const navigate = useNavigate();
+
+  const getSingleInvoice = () => {
+    navigate(`/clients/${pid}/invoices/${props.Pid}`)
+  };
+
   return (
     <Fragment>
       <section className={classes.meal}>
@@ -38,6 +47,14 @@ const InvoiceItems = (props) => {
         <div className={classes.mealfritem}>
           <div>{props.Operator}</div>
         </div>
+        <div className={classes.mealfritem}>
+          <button onClick={getSingleInvoice} className={classes.button}>View</button>
+        </div>
+        <div>
+            <Routes>
+              <Route path={`invoices/${props.Pid}`} element={<SingleInvoice />} />
+            </Routes>
+          </div>
       </section>
     </Fragment>
   );

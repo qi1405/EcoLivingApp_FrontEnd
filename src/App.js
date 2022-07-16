@@ -17,6 +17,8 @@ import Home from "./components/pages/Home";
 import Invoicing from "./components/pages/Invoicing";
 import AuthService from "./components/services/auth.service";
 import EventBus from "./components/common/EventBus";
+import SingleInvoice from "./components/Payments/SingleInvoice";
+// import AllInvoices from "./components/Payments/AllInvoices";
 
 // import ClientCart from "./components/Clients/ClientCart";
 
@@ -53,19 +55,10 @@ function App() {
     setCurrentUser(undefined);
   };
 
-  // const [cartIsShown, setCartIsShown] = useState(false);
 
-  // const showCartHandler = () => {
-  //    setCartIsShown(true);
-  // };
-
-  // const hideCartHandler = () => {
-  //   setCartIsShown(false);
-  // };
 
   return (
     <Layout>
-      {/* {cartIsShown && <ClientCart onClose={hideCartHandler} />} */}
       <Suspense
         fallback={
           <div className="centered">
@@ -78,6 +71,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/clients" element={<AllClients />} />
           <Route path="/clients/:pid/*" element={<ClientDetails />} />
+          <Route path="/clients/:pid/invoices/:id" element={<SingleInvoice />} />
           {(showAdminBoard || showModeratorBoard) && (
           <Route path="/new-client" element={<NewClient />} />
           )}

@@ -38,6 +38,9 @@ const InvoicesHeadRow = (props) => {
       <div className={classes.invoicesitem}>
         <div>Operator</div>
       </div>
+      <div className={classes.invoicesitem}>
+        <div>Manage</div>
+      </div>
     </section>
   );
 };
