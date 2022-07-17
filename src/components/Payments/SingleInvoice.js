@@ -7,9 +7,11 @@ import EventBus from "../common/EventBus";
 import authHeader from "../services/auth-header";
 import axios from "axios";
 import Card from "../UI/Card";
+import PaymentStatus from "./PaymentStatus";
 
 const SingleInvoice = (props) => {
   const { pid, id } = useParams();
+  const API = "http://localhost:8090/customers/invoices/invs"+id;
 
   const [invoice, setInvoice] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +82,7 @@ const SingleInvoice = (props) => {
 
         for (const key in responseCust) {
           loadedCustomer.push({
+            key: responseCust[key].id,
             ID: responseCust[key].id,
             Name: responseCust[key].name,
             Surname: responseCust[key].surname,
@@ -114,7 +117,7 @@ const SingleInvoice = (props) => {
 
   const invoiceLeftItems = customer.map((cust) => (
     <SingleInvoiceLeftItems
-      key={cust.key}
+      key={cust.ID}
       id={cust.ID}
       customerNumber={cust.CustomerNumber}
       name={cust.Name}
@@ -124,7 +127,7 @@ const SingleInvoice = (props) => {
 
   const invoiceRightItems = invoice.map((inv) => (
     <SingleInvoiceRightItems
-      key={inv.key}
+      key={inv.id}
       id={inv.key}
       invoiceNumber={inv.InvoiceNumber}
       invoiceMonth={inv.MonthOfPayment}
@@ -132,26 +135,60 @@ const SingleInvoice = (props) => {
     />
   ));
 
+  const paymentStatus = invoice.map((inv) => (
+    <PaymentStatus key={inv.Id} id={inv.Id} isPaid={inv.Paid} />
+  ));
+
+
+  function download () {
+
+  axios({
+    url: API,
+    method: 'GET',
+    responseType: 'blob', // Important
+    headers: authHeader()
+  }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", id+".pdf");
+      document.body.appendChild(link);
+      link.click()
+  });
+}
+
   return (
-    <section className={classes.container}>
-      <div className={classes.prova1}>
-        <div className={classes.fieldnames}>
-          <h3>Customer ID:</h3>
-          <h3>Customer Number:</h3>
-          <h3>Customer Name:</h3>
-          <h3>Customer Surname:</h3>
+    <>
+      <section className={classes.container}>
+        <div className={classes.prova1}>
+          <div className={classes.fieldnames}>
+            <h3>Customer ID:</h3>
+            <h3>Customer Number:</h3>
+            <h3>Customer Name:</h3>
+            <h3>Customer Surname:</h3>
+          </div>
+          <div className={classes.fielditems}>{invoiceLeftItems}</div>
+          <div className={classes.border}></div>
+          <div className={classes.fieldnames}>
+            <h3>Invoice ID:</h3>
+            <h3>Invoice Number:</h3>
+            <h3>Invoice MoP:</h3>
+            <h3>Invoice DoP:</h3>
+          </div>
+          <div className={classes.fielditems}>{invoiceRightItems}</div>
         </div>
-        <div className={classes.fielditems}>{invoiceLeftItems}</div>
-        <div className={classes.border}></div>
-        <div className={classes.fieldnames}>
-          <h3>Invoice ID:</h3>
-          <h3>Invoice Number:</h3>
-          <h3>Invoice MoP:</h3>
-          <h3>Invoice DoP:</h3>
+      </section>
+      <section className={classes.container}>
+        <div className={classes.prova1}>
+          <h3>Payment status: {paymentStatus}</h3>
         </div>
-        <div className={classes.fielditems}>{invoiceRightItems}</div>
+      </section>
+      <section className={classes.container}>
+        <div className={classes.prova1}>
+          <button onClick={download} className={classes.button}>Generate Invoice</button>
         </div>
-    </section>
+      </section>
+    </>
   );
 };
 

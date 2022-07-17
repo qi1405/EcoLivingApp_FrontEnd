@@ -4,6 +4,7 @@ const SingleInvoiceLeftItems = (props) => {
   return (
     <section className={classes.container}>
       <div className={classes.left}>
+        <h3>{props.key}</h3>
         <h3>{props.id}</h3>
         <h3>{props.customerNumber}</h3>
         <h3>{props.name}</h3>
