@@ -6,19 +6,19 @@ import SingleInvoiceRightItems from "./SingleInvoiceRightItems";
 import EventBus from "../common/EventBus";
 import authHeader from "../services/auth-header";
 import axios from "axios";
-import Card from "../UI/Card";
 import PaymentStatus from "./PaymentStatus";
 
 const SingleInvoice = (props) => {
   const { pid, id } = useParams();
-  const API = "http://localhost:8090/customers/invoices/invs"+id;
+  // const API = "http://localhost:8090/customers/invoices/invs"+id;
+  const API = "https://backend-jpapp.herokuapp.com/customers/invoices/invs"+id;
 
   const [invoice, setInvoice] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState([]);
 
-  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
-  const API_MAIN = "http://localhost:8090/";
+  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  // const API_MAIN = "http://localhost:8090/";
 
   const getSingleInvoice = () => {
     return axios.get(API_MAIN + `data/customers/invoices/${id}`, {

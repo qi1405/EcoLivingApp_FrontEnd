@@ -8,7 +8,6 @@ import EventBus from "../common/EventBus";
 import authHeader from "../services/auth-header";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Card from "../UI/Card";
 
 const AllInvoices = (props) => {
   const { pid } = useParams();
@@ -18,8 +17,8 @@ const AllInvoices = (props) => {
   const [httpError, setHttpError] = useState();
   const navigate = useNavigate();
 
-  // const API_MAIN = "https://backend-jpapp.herokuapp.com/";
-  const API_MAIN = "http://localhost:8090/";
+  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  // const API_MAIN = "http://localhost:8090/";
 
   const getAllInvoices = () => {
     return axios.get(API_MAIN + `data/customers/${pid}/allinvoices`, {

@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 
 const SingleClientItem = (props) => {
   const { pid } = useParams();
-  const API = "http://localhost:8090/customers/invoices/invsCust"+pid;
+  // const API = "http://localhost:8090/customers/invoices/invsCust"+pid;
+  const API = "https://backend-jpapp.herokuapp.com/customers/invoices/invsCust"+pid;
 
 
   function download () {
