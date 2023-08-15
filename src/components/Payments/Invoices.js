@@ -17,7 +17,7 @@ const Invoices = (props) => {
   const navigate = useNavigate();
 
 
-  const API_MAIN = "https://backend-jpapp.herokuapp.com/";
+  const API_MAIN = "https://ecoliving1-79a784336527.herokuapp.com/";
   // const API_MAIN = "http://localhost:8090/";
 
   const getRecentInvoices = () => {
