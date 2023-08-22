@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "https://ecoliving1-79a784336527.herokuapp.com/api/test/";
-const API_MAIN = "https://ecoliving1-79a784336527.herokuapp.com/";
+const API_URL = "https://ecoliving-e05afad0acd8.herokuapp.com/api/test/";
+const API_MAIN = "https://ecoliving-e05afad0acd8.herokuapp.com/";
 // const API_URL = "http://localhost:8090/api/test/";
 // const API_MAIN = "http://localhost:8090/";
 

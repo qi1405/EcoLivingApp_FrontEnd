@@ -11,13 +11,13 @@ import PaymentStatus from "./PaymentStatus";
 const SingleInvoice = (props) => {
   const { pid, id } = useParams();
   // const API = "http://localhost:8090/customers/invoices/invs"+id;
-  const API = "https://ecoliving1-79a784336527.herokuapp.com/customers/invoices/invs"+id;
+  const API = "https://ecoliving-e05afad0acd8.herokuapp.com/customers/invoices/invs"+id;
 
   const [invoice, setInvoice] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState([]);
 
-  const API_MAIN = "https://ecoliving1-79a784336527.herokuapp.com/";
+  const API_MAIN = "https://ecoliving-e05afad0acd8.herokuapp.com/";
   // const API_MAIN = "http://localhost:8090/";
 
   const getSingleInvoice = () => {
