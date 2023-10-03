@@ -1,7 +1,7 @@
 import axios from "axios";
 import TokenService from "./token.service";
 const instance = axios.create({
-  baseURL: "https://ecoliving-e05afad0acd8.herokuapp.com/api",
+  baseURL: "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/api",
   // baseURL: "http://localhost:8090/api",
   headers: {
     "Content-Type": "application/json",

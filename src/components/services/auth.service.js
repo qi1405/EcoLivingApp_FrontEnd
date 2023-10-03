@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ecoliving-e05afad0acd8.herokuapp.com/api/auth/";
+const API_URL = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/api/auth/";
 // const API_URL = "http://localhost:8090/api/auth/";
 
 const register = (username, email, password) => {
