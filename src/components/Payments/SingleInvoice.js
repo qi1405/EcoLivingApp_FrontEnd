@@ -11,13 +11,13 @@ import PaymentStatus from "./PaymentStatus";
 const SingleInvoice = (props) => {
   const { pid, id } = useParams();
   // const API = "http://localhost:8090/customers/invoices/invs"+id;
-  const API = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/customers/invoices/invs"+id;
+  const API = "https://www.dimisols.store/customers/invoices/invs"+id;
 
   const [invoice, setInvoice] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState([]);
 
-  const API_MAIN = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/";
+  const API_MAIN = "https://www.dimisols.store/";
   // const API_MAIN = "http://localhost:8090/";
 
   const getSingleInvoice = () => {

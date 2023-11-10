@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/api/test/";
-const API_MAIN = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/";
+const API_URL = "https://www.dimisols.store/api/test/";
+const API_MAIN = "https://www.dimisols.store/";
 // const API_URL = "http://localhost:8090/api/test/";
 // const API_MAIN = "http://localhost:8090/";
 

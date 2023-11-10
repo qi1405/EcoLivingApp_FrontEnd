@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 const SingleClientItem = (props) => {
   const { pid } = useParams();
   // const API = "http://localhost:8090/customers/invoices/invsCust"+pid;
-  const API = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/customers/invoices/invsCust"+pid;
+  const API = "https://www.dimisols.store/customers/invoices/invsCust"+pid;
 
 
   function download () {

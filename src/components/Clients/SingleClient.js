@@ -20,7 +20,7 @@ const SingleClient = (props) => {
   const [loadInvoices, setLoadInvoices] = useState("Load");
   const navigate = useNavigate();
 
-  const API_MAIN = "http://ecoliving-env-1.eba-dgcswt2k.eu-north-1.elasticbeanstalk.com/";
+  const API_MAIN = "https://www.dimisols.store/";
   // const API_MAIN = "http://localhost:8090/";
 
   const getSingleCustomer = () => {
